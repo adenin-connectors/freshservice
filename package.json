@@ -1,0 +1,24 @@
+{
+  "name": "google-calendar",
+  "version": "1.0.0",
+  "description": "lists all all Box files",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "./node_modules/.bin/nodemon app.js"
+  },
+  "dependencies": {
+    "@adenin/cf-activity": "^1.3.0",
+    "@adenin/cf-logger": "^1.5.1",
+    "@adenin/cf-provider": "^2.4.3",
+    "agentkeepalive": "^4.0.2",
+    "decache": "^4.5.1",
+    "got": "^9.6.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}

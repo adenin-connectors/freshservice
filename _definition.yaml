@@ -1,0 +1,26 @@
+ConnectorTitle: Freshservice
+AccessCodeServiceEndpoint:
+AccessTokenServiceEndpoint:
+UserName: hide
+UserPassword: hide
+ClientId: hide
+ClientSecret: hide
+AccessCodeServiceUrl: hide
+AccessTokenServiceUrl: hide
+Personalized: !!bool true
+ApiKey: hide
+ServiceUrl: hide
+ServiceUrlHint: ''
+XML2JSON: hide
+ImpersonateOAuth: hide
+Interface: hide
+Custom1: required
+Custom1Label: Freshservice Domain
+Custom1Hint: ''
+Custom2: required
+Custom2Label: API Key
+Custom3: hide
+Custom2Hint: ''
+Custom3Label: Custom Field 3
+Custom3Hint: ''
+Scopes:

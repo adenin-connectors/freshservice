@@ -1,0 +1,8 @@
+ServiceName: 'mytickets'
+InterfaceName: 'items'
+Description: 'My Tickets'
+APIDoc: ''
+Interfaces: 'search,pagination'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''

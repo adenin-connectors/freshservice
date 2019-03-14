@@ -8,7 +8,7 @@
     "dev": "./node_modules/.bin/nodemon app.js"
   },
   "dependencies": {
-    "@adenin/cf-activity": "^1.3.0",
+    "@adenin/cf-activity": "^1.4.0",
     "@adenin/cf-logger": "^1.5.1",
     "@adenin/cf-provider": "^2.4.3",
     "agentkeepalive": "^4.0.2",

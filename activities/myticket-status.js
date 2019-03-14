@@ -13,34 +13,7 @@ module.exports = async (activity) => {
       return;
     }
 
-    let tickets = response.body;
-    let freshserviceDomain = api.getDomain();
-
-    let ticketStatus = {
-      title: 'Freshdesk Tickets',
-      url: `https://${freshserviceDomain}/helpdesk/tickets`,
-      urlLabel: 'All Tickets',
-    };
-
-    let noOfTickets = tickets.length;
-
-    if (noOfTickets > 0) {
-      ticketStatus = {
-        ...ticketStatus,
-        description: `You have ${noOfTickets > 1 ? noOfTickets + " tickets" : noOfTickets + " ticket"}`,
-        color: 'blue',
-        value: noOfTickets,
-        actionable: true
-      };
-    } else {
-      ticketStatus = {
-        ...ticketStatus,
-        description: `You have no tickets.`,
-        actionable: false
-      };
-    }
-
-    activity.Response.Data = ticketStatus;
+    activity.Response.Data = api.getTicketStatus(response.body);
   } catch (error) {
     cfActivity.handleError(activity, error);
   }

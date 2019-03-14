@@ -1,0 +1,8 @@
+ServiceName: 'mytickets-new'
+InterfaceName: 'status'
+Description: 'My New Tickets'
+APIDoc: ''
+Interfaces: 'daterange'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''

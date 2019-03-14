@@ -11,7 +11,7 @@ function api(path, opts) {
     return Promise.reject(new TypeError(`Expected \`path\` to be a string, got ${typeof path}`));
   }
 
-  let freshserviceDomain = api.getDomain();
+  let freshserviceDomain = getDomain();
 
   opts = Object.assign({
     json: true,
@@ -60,7 +60,7 @@ api.initialize = function (activity) {
   _activity = activity;
 };
 
-api.getDomain = function () {
+function getDomain() {
   let domain = _activity.Context.connector.custom1;
   domain = domain.replace('https://', '');
   domain = domain.replace('/', '');
@@ -76,5 +76,35 @@ for (const x of helpers) {
   api[x] = (url, opts) => api(url, Object.assign({}, opts, { method }));
   api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
 }
+//**returns status object based on provided tickets */
+api.getTicketStatus = function (tickets) {
+  let freshserviceDomain = getDomain();
+
+  let ticketStatus = {
+    title: 'Freshdesk Tickets',
+    url: `https://${freshserviceDomain}/helpdesk/tickets`,
+    urlLabel: 'All Tickets',
+  };
+
+  let noOfTickets = tickets.length;
+
+  if (noOfTickets > 0) {
+    ticketStatus = {
+      ...ticketStatus,
+      description: `You have ${noOfTickets > 1 ? noOfTickets + " tickets" : noOfTickets + " ticket"}`,
+      color: 'blue',
+      value: noOfTickets,
+      actionable: true
+    };
+  } else {
+    ticketStatus = {
+      ...ticketStatus,
+      description: `You have no tickets.`,
+      actionable: false
+    };
+  }
+
+  return ticketStatus;
+};
 
 module.exports = api;

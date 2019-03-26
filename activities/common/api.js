@@ -4,8 +4,6 @@ const isPlainObj = require('is-plain-obj');
 const HttpAgent = require('agentkeepalive');
 const HttpsAgent = HttpAgent.HttpsAgent;
 
-let _activity = null;
-
 function api(path, opts) {
   if (typeof path !== 'string') {
     return Promise.reject(new TypeError(`Expected \`path\` to be a string, got ${typeof path}`));
@@ -16,7 +14,7 @@ function api(path, opts) {
   opts = Object.assign({
     json: true,
     endpoint: `https://${freshserviceDomain}/`,
-    token: _activity.Context.connector.custom2,
+    token: Activity.Context.connector.custom2,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
@@ -56,12 +54,8 @@ api.stream = (url, opts) => apigot(url, Object.assign({}, opts, {
   stream: true
 }));
 
-api.initialize = function (activity) {
-  _activity = activity;
-};
-
 api.getDomain = function () {
-  let domain = _activity.Context.connector.custom1;
+  let domain = Activity.Context.connector.custom1;
   domain = domain.replace('https://', '');
   domain = domain.replace('/', '');
 
@@ -76,35 +70,5 @@ for (const x of helpers) {
   api[x] = (url, opts) => api(url, Object.assign({}, opts, { method }));
   api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
 }
-//**returns status object based on provided tickets */
-api.getTicketStatus = function (tickets) {
-  let freshserviceDomain = api.getDomain();
-
-  let ticketStatus = {
-    title: 'Freshdesk Tickets',
-    url: `https://${freshserviceDomain}/helpdesk/tickets`,
-    urlLabel: 'All Tickets',
-  };
-
-  let noOfTickets = tickets.length;
-
-  if (noOfTickets > 0) {
-    ticketStatus = {
-      ...ticketStatus,
-      description: `You have ${noOfTickets > 1 ? noOfTickets + " tickets" : noOfTickets + " ticket"}`,
-      color: 'blue',
-      value: noOfTickets,
-      actionable: true
-    };
-  } else {
-    ticketStatus = {
-      ...ticketStatus,
-      description: `You have no tickets.`,
-      actionable: false
-    };
-  }
-
-  return ticketStatus;
-};
 
 module.exports = api;

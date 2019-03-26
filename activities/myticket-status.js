@@ -1,20 +1,40 @@
 'use strict';
-
-const cfActivity = require('@adenin/cf-activity');
 const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
-    api.initialize(activity);
-
     const response = await api('/helpdesk/tickets.json');
 
-    if (!cfActivity.isResponseOk(activity, response)) {
-      return;
+    if (Activity.isErrorResponse(response)) return;
+
+    let freshserviceDomain = api.getDomain();
+
+    let ticketStatus = {
+      title: T('Freshservice Tickets'),
+      url: `https://${freshserviceDomain}/helpdesk/tickets`,
+      urlLabel: T('All Tickets'),
+    };
+
+    let noOfTickets = response.body.length;
+
+    if (noOfTickets > 0) {
+      ticketStatus = {
+        ...ticketStatus,
+        description: noOfTickets > 1 ? T("You have {0} tickets.", noOfTickets) : T("You have 1 ticket."),
+        color: 'blue',
+        value: noOfTickets,
+        actionable: true
+      };
+    } else {
+      ticketStatus = {
+        ...ticketStatus,
+        description: T(`You have no tickets.`),
+        actionable: false
+      };
     }
 
-    activity.Response.Data = api.getTicketStatus(response.body);
+    activity.Response.Data = ticketStatus;
   } catch (error) {
-    cfActivity.handleError(activity, error);
+    Activity.handleError(error);
   }
 };

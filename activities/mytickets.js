@@ -1,24 +1,17 @@
 'use strict';
-
-const logger = require('@adenin/cf-logger');
-const cfActivity = require('@adenin/cf-activity');
 const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
-    api.initialize(activity);
-
-    var pagination = cfActivity.pagination(activity);
+    var pagination = Activity.pagination();
 
     const response = await api(`/helpdesk/tickets.json?page=${pagination.page}`);
 
-    if (!cfActivity.isResponseOk(activity, response)) {
-      return;
-    }
+    if (Activity.isErrorResponse(response)) return;
 
     activity.Response.Data = convertResponse(response);
   } catch (error) {
-    cfActivity.handleError(error, activity);
+    Activity.handleError(error);
   }
 };
 /**maps response data to items */

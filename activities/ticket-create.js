@@ -33,7 +33,7 @@ module.exports = async (activity) => {
             }
           }
         });
-        console.log(response);
+        
         var comment = T("Ticket {0} created.", response.body.item.helpdesk_ticket.id);
         data = getObjPath(activity.Request, "Data.model");
         data._action = {
@@ -48,7 +48,7 @@ module.exports = async (activity) => {
         var fname = __dirname + path.sep + "common" + path.sep + "ticket-create.form";
         var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
 
-        data.title = T("Create Ticket");
+        data.title = T("Create Freshservice Ticket");
         data.formSchema = schema;
 
         // initialize form subject with query parameter (if provided)

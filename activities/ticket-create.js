@@ -1,5 +1,8 @@
 'use strict';
 const api = require('./common/api');
+const path = require('path');
+const yaml = require('js-yaml');
+const fs = require('fs');
 
 module.exports = async (activity) => {
 
@@ -26,11 +29,12 @@ module.exports = async (activity) => {
               subject: form.subject,
               description: form.description,
               email: activity.Context.UserEmail,
+              priority: form.priority
             }
           }
         });
-
-        var comment = "Task created";
+        console.log(response);
+        var comment = T("Ticket {0} created.", response.body.item.helpdesk_ticket.id);
         data = getObjPath(activity.Request, "Data.model");
         data._action = {
           response: {
@@ -41,6 +45,11 @@ module.exports = async (activity) => {
         break;
 
       default:
+        var fname = __dirname + path.sep + "common" + path.sep + "ticket-create.form";
+        var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
+
+        data.formSchema = schema;
+
         // initialize form subject with query parameter (if provided)
         if (activity.Request.Query && activity.Request.Query.query) {
           data = {
@@ -51,6 +60,13 @@ module.exports = async (activity) => {
         }
         break;
     }
+    data._actionList = [{
+      id: "create",
+      label: T("Create Ticket"),
+      settings: {
+        actionType: "a"
+      }
+    }];
 
     // copy response data
     activity.Response.Data = data;

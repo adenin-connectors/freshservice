@@ -1,6 +1,6 @@
 ServiceName: 'ticket-create'
 InterfaceName: 'create'
-Description: 'Create Freshservice Task'
+Description: 'Create Freshservice Ticket'
 APIDoc: ''
 Interfaces: 'search,pagination'
 RequiredScopes: ''

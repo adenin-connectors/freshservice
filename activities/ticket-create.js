@@ -59,15 +59,16 @@ module.exports = async (activity) => {
             }
           };
         }
+        data._actionList = [{
+          id: "create",
+          label: T("Create Ticket"),
+          settings: {
+            actionType: "a"
+          }
+        }];
         break;
     }
-    data._actionList = [{
-      id: "create",
-      label: T("Create Ticket"),
-      settings: {
-        actionType: "a"
-      }
-    }];
+
 
     // copy response data
     activity.Response.Data = data;

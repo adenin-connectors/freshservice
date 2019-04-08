@@ -22,7 +22,7 @@ function api(path, opts) {
 
   opts.headers = Object.assign({
     accept: 'application/json',
-    'user-agent': 'adenin Now Assistant Connector, https://www.adenin.com/now-assistant'
+    'user-agent': 'adenin Digital Assistant Connector, https://www.adenin.com/digital-assistant'
   }, opts.headers);
 
   if (opts.token) {

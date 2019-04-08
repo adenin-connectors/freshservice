@@ -1,0 +1,8 @@
+ServiceName: 'open-tickets-by-priority'
+InterfaceName: 'chart'
+Description: 'Open Tickets By Priority'
+APIDoc: ''
+Interfaces: ''
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''

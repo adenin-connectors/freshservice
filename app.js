@@ -4,12 +4,13 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const decache = require('decache');
-const logger = require('@adenin/cf-logger');
+
+global.logger = require('@adenin/cf-logger');
 
 const app = new Koa();
 const router = new Router();
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 let index = require('./index');
 
@@ -54,7 +55,7 @@ app
     ctx.status = err.status || 500;
     ctx.body = {
       Response: {
-        ErrorCode: err.status || 500,
+        ErrorCode: ctx.status,
         Data: {
           ErrorText: err.message
         }

@@ -8,18 +8,17 @@
     "dev": "./node_modules/.bin/nodemon app.js"
   },
   "dependencies": {
-    "@adenin/cf-activity": "^1.4.0",
-    "@adenin/cf-logger": "^1.5.1",
-    "@adenin/cf-provider": "^2.4.3",
+    "@adenin/cf-provider": "^2.5.1",
     "agentkeepalive": "^4.0.2",
-    "decache": "^4.5.1",
     "got": "^9.6.0",
-    "js-yaml": "^3.13.0",
-    "koa": "^2.7.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0"
+    "js-yaml": "^3.13.0"
   },
   "devDependencies": {
+    "@adenin/cf-logger": "^1.6.1",
+    "decache": "^4.5.1",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
     "nodemon": "^1.18.10"
   }
 }

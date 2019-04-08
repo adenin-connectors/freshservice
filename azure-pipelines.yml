@@ -1,0 +1,26 @@
+trigger:
+  - azure
+
+pool:
+  vmImage: 'vs2017-win2016'
+  demands: npm
+
+steps:
+- task: NodeTool@0
+  displayName: 'Use Node version'
+  inputs:
+    versionSpec: 8.4
+
+- task: Npm@0
+  displayName: 'Install application dependencies'
+  inputs:
+    arguments: '--force --only=prod'
+
+- task: ArchiveFiles@1
+  displayName: 'Archive files '
+  inputs:
+    rootFolder: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'

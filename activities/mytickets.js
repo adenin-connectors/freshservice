@@ -3,15 +3,16 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
-    var pagination = Activity.pagination();
+    var pagination = $.pagination(activity);
 
+    api.initialize(activity);
     const response = await api(`/helpdesk/tickets.json?page=${pagination.page}`);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     activity.Response.Data = convertResponse(response);
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };
 /**maps response data to items */

@@ -3,13 +3,14 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
+    api.initialize(activity);
     const response = await api(`/helpdesk/tickets.json?`);
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     activity.Response.Data = mapResponseToChartData(response);
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };
 //** maps response data to data format usable by chart */

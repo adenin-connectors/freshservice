@@ -3,16 +3,17 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
+    api.initialize(activity);
     const response = await api('/helpdesk/tickets.json');
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     let freshserviceDomain = api.getDomain();
 
     let ticketStatus = {
-      title: T('Freshservice Tickets'),
+      title: T(activity, 'Freshservice Tickets'),
       link: `https://${freshserviceDomain}/helpdesk/tickets`,
-      linkLabel: T('All Tickets'),
+      linkLabel: T(activity, 'All Tickets'),
     };
 
     let noOfTickets = response.body.length;
@@ -20,7 +21,7 @@ module.exports = async (activity) => {
     if (noOfTickets > 0) {
       ticketStatus = {
         ...ticketStatus,
-        description: noOfTickets > 1 ? T("You have {0} tickets.", noOfTickets) : T("You have 1 ticket."),
+        description: noOfTickets > 1 ? T(activity, "You have {0} tickets.", noOfTickets) : T(activity, "You have 1 ticket."),
         color: 'blue',
         value: noOfTickets,
         actionable: true
@@ -28,13 +29,13 @@ module.exports = async (activity) => {
     } else {
       ticketStatus = {
         ...ticketStatus,
-        description: T(`You have no tickets.`),
+        description: T(activity, `You have no tickets.`),
         actionable: false
       };
     }
 
     activity.Response.Data = ticketStatus;
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };

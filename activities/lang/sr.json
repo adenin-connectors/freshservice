@@ -4,10 +4,6 @@
   "You have {0} tickets.": "Imate {0} tiketa.",
   "You have 1 ticket.": "Imate 1 tiket.",
   "You have no tickets.": "Nemate tikete.",
-  "New Freshservice Tickets": "Novi Freshservice Tiketi",
-  "You have {0} new tickets.": "Imate {0} nova tiketa.",
-  "You have 1 new ticket.": "Imate 1 novi tiket.",
-  "You have no new tickets.": "Nemate novih tiketa.",
   "Create Freshservice Ticket": "Kreiraj Freshservice Tiket",
   "Create Ticket": "Kreiraj Tiket",
   "Ticket {0} created.": "Tiket {0} je kreiran."

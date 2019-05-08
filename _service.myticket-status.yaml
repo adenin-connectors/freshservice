@@ -1,8 +1,0 @@
-ServiceName: 'myticket-status'
-InterfaceName: 'status'
-Description: 'Freshservice Tickets Status'
-APIDoc: ''
-Interfaces: 'search,pagination'
-RequiredScopes: ''
-AdditionalParameters:
-Method: ''

@@ -72,4 +72,57 @@ for (const x of helpers) {
   api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
 }
 
+/**maps response data to items */
+api.convertResponse = function (tickets) {
+  let items = [];
+  let freshserviceDomain = api.getDomain();
+
+  for (let i = 0; i < tickets.length; i++) {
+    let raw = tickets[i];
+    let item = {
+      id: raw.id,
+      title: raw.subject,
+      description: raw.description,
+      date: new Date(raw.created_at).toISOString(),
+      link: `https://${freshserviceDomain}/helpdesk/tickets/${raw.display_id}`,
+      raw: raw
+    };
+    items.push(item);
+  }
+
+  return { items };
+}
+//** filters Tickets based on privided daterange */
+api.filterTicketsByDateRange = function (tickets, daterange) {
+  let filtered = [];
+  let start = Date.parse(daterange.startDate);
+  let end = Date.parse(daterange.endDate);
+
+  for (let i = 0; i < tickets.length; i++) {
+    //converts time to proper miliseconds
+    let milis = Date.parse(tickets[i].created_at);
+    if (milis > start && milis < end) {
+      filtered.push(tickets[i]);
+    }
+  }
+
+  return filtered;
+}
+
+//** paginate items[] based on provided pagination */
+api.paginateItems = function (items, pagination) {
+  let pagiantedItems = [];
+  const pageSize = parseInt(pagination.pageSize);
+  const offset = (parseInt(pagination.page) - 1) * pageSize;
+
+  if (offset > items.length) return pagiantedItems;
+
+  for (let i = offset; i < offset + pageSize; i++) {
+    if (i >= items.length) {
+      break;
+    }
+    pagiantedItems.push(items[i]);
+  }
+  return pagiantedItems;
+}
 module.exports = api;

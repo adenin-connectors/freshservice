@@ -8,14 +8,6 @@ module.exports = async (activity) => {
     let page = 1;
     let maxResults = 30;
 
-    let userMail = activity.Context.UserEmail;
-    let currentUser = await api(`/agents.json?query=email is ${userMail}`);
-    if ($.isErrorResponse(activity, currentUser)) return;
-    if (currentUser.body.length == 0) {
-      // current user not found on freshservice we return
-      return;
-    }
-    let myId = currentUser.body[0].agent.user_id;
     // page size for freshservice is 30 and can't be changed with request url parameter
     let response = await api(`/helpdesk/tickets.json?page=${page}`);
     if ($.isErrorResponse(activity, response)) return;
@@ -35,10 +27,8 @@ module.exports = async (activity) => {
       }
     }
 
-    let tickets = filterMyTickets(allTickets, myId);
-
     let daterange = $.dateRange(activity, "today");
-    tickets = api.filterTicketsByDateRange(tickets, daterange);
+    let tickets = api.filterTicketsByDateRange(allTickets, daterange);
 
     let value = tickets.length;
     let pagination = $.pagination(activity);
@@ -63,15 +53,3 @@ module.exports = async (activity) => {
     $.handleError(activity, error);
   }
 };
-
-//** filters tickets by provided freshservice user id */
-function filterMyTickets(tickets, myId) {
-  let myTickets = []
-  for (let i = 0; i < tickets.length; i++) {
-    if (tickets[i].responder_id == myId) {
-      myTickets.push(tickets[i]);
-    }
-  }
-
-  return myTickets;
-}

@@ -1,4 +1,3 @@
-ServiceName: 'ticket-create'
 InterfaceName: 'create'
 Description: 'Create Freshservice Ticket'
 APIDoc: ''

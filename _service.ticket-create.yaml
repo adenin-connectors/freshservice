@@ -1,7 +1,7 @@
 InterfaceName: 'create'
-Description: 'Create Freshservice Ticket'
+Description: 'Create Ticket'
 APIDoc: ''
-Interfaces: 'search,pagination'
+Interfaces: ''
 RequiredScopes: ''
 AdditionalParameters:
 Method: ''

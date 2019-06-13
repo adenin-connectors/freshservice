@@ -1,5 +1,5 @@
 InterfaceName: 'status'
-Description: 'My Tickets'
+Description: 'Open Tickets'
 APIDoc: ''
 Interfaces: 'items,daterange,pagination'
 RequiredScopes: ''

@@ -5,7 +5,6 @@ module.exports = async (activity) => {
   try {
     api.initialize(activity);
     const response = await api('/agents.json');
-
     if ($.isErrorResponse(activity, response)) return;
 
     activity.Response.Data = {

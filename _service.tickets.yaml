@@ -1,8 +1,7 @@
-ServiceName: 'mytickets-new'
 InterfaceName: 'status'
-Description: 'My New Tickets'
+Description: 'All Tickets'
 APIDoc: ''
-Interfaces: 'daterange'
+Interfaces: 'items,daterange,pagination'
 RequiredScopes: ''
 AdditionalParameters:
 Method: ''

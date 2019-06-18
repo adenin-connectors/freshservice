@@ -53,6 +53,11 @@ module.exports = async (activity) => {
 
     if (value > 0) {
       activity.Response.Data.value = value;
+
+      // items are alrady sorted by date descending (higest value first) in api request
+      // request wasn't changed it's just tested to see how it is sorted
+      // there is no option to change default sort order
+      activity.Response.Data.date = activity.Response.Data.items[0].date;
       activity.Response.Data.color = 'blue';
       activity.Response.Data.description = value > 1 ? T(activity, "You have {0} open tickets.", value)
         : T(activity, "You have 1 open ticket.");

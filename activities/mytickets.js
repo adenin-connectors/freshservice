@@ -46,23 +46,25 @@ module.exports = async (activity) => {
 
     let freshserviceDomain = api.getDomain();
     activity.Response.Data.items = api.convertResponse(tickets);
-    activity.Response.Data.title = T(activity, 'Open Tickets');
-    activity.Response.Data.link = `https://${freshserviceDomain}/helpdesk/tickets`;
-    activity.Response.Data.linkLabel = T(activity, 'All Tickets');
-    activity.Response.Data.actionable = value > 0;
+    if (parseInt(pagination.page) == 1) {
+      activity.Response.Data.title = T(activity, 'Open Tickets');
+      activity.Response.Data.link = `https://${freshserviceDomain}/helpdesk/tickets`;
+      activity.Response.Data.linkLabel = T(activity, 'All Tickets');
+      activity.Response.Data.actionable = value > 0;
 
-    if (value > 0) {
-      activity.Response.Data.value = value;
+      if (value > 0) {
+        activity.Response.Data.value = value;
 
-      // items are alrady sorted by date descending (higest value first) in api request
-      // request wasn't changed it's just tested to see how it is sorted
-      // there is no option to change default sort order
-      activity.Response.Data.date = activity.Response.Data.items[0].date;
-      activity.Response.Data.color = 'blue';
-      activity.Response.Data.description = value > 1 ? T(activity, "You have {0} open tickets.", value)
-        : T(activity, "You have 1 open ticket.");
-    } else {
-      activity.Response.Data.description = T(activity, `You have no open tickets.`);
+        // items are alrady sorted by date descending (higest value first) in api request
+        // request wasn't changed it's just tested to see how it is sorted
+        // there is no option to change default sort order
+        activity.Response.Data.date = allTickets[0].created_at;
+        activity.Response.Data.color = 'blue';
+        activity.Response.Data.description = value > 1 ? T(activity, "You have {0} open tickets.", value)
+          : T(activity, "You have 1 open ticket.");
+      } else {
+        activity.Response.Data.description = T(activity, `You have no open tickets.`);
+      }
     }
   } catch (error) {
     $.handleError(activity, error);

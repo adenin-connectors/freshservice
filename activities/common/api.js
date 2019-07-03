@@ -90,7 +90,7 @@ api.convertResponse = function (tickets) {
     items.push(item);
   }
 
-  return { items };
+  return items;
 }
 //** filters Tickets based on privided daterange */
 api.filterTicketsByDateRange = function (tickets, daterange) {

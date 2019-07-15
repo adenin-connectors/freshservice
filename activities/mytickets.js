@@ -37,7 +37,7 @@ module.exports = async (activity) => {
 
     let tickets = filterMyTickets(allTickets, myId);
 
-    let daterange = $.dateRange(activity, "today");
+    let daterange = $.dateRange(activity);
     tickets = api.filterTicketsByDateRange(tickets, daterange);
 
     let value = tickets.length;

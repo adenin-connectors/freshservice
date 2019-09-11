@@ -41,6 +41,7 @@ router
 app
   .use(async (ctx, next) => {
     try {
+      process.env.HOST = ctx.req.headers.host;
       await next();
     } catch (err) {
       ctx.app.emit('error', err, ctx);

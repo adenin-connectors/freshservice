@@ -1,5 +1,11 @@
+# trigger build for azure branch only - and ignore /docs/ (images will bloat deploy pkg)
 trigger:
-  - azure
+  branches:
+    include:
+    - azure
+  paths:
+    exclude:
+    - docs/*
 
 pool:
   vmImage: 'vs2017-win2016'
